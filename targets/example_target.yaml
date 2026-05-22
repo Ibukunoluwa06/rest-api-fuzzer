@@ -1,0 +1,50 @@
+# targets/example_target.yaml
+# Describes the API endpoints to fuzz
+
+name: example_api
+base_url: http://localhost:5000
+
+endpoints:
+  - path: /health
+    methods: [GET]
+    params: []
+
+  - path: /users
+    methods: [GET, POST]
+    params:
+      - name: id
+        type: query
+        default: "1"
+      - name: username
+        type: body
+        default: "testuser"
+      - name: email
+        type: body
+        default: "test@example.com"
+      - name: role
+        type: body
+        default: "user"
+
+  - path: /login
+    methods: [POST]
+    params:
+      - name: username
+        type: body
+        default: "admin"
+      - name: password
+        type: body
+        default: "admin123"
+
+  - path: /search
+    methods: [GET]
+    params:
+      - name: q
+        type: query
+        default: "alice"
+
+headers:
+  Content-Type: application/json
+  User-Agent: rest-api-fuzzer/1.0
+
+auth:
+  type: none
